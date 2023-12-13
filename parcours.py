@@ -100,7 +100,7 @@ class ParentTraceur:
         noeud = next(k for k,v in self.parents.items if self.graphe.etatFinal(k))
         trace = [noeud]
         while noeud not in self.root :
-            parent = self.parents[noeud]
+            parent = self.parents[noeud][0]
             trace.insert(0,parent)
         return trace
 
