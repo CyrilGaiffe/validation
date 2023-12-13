@@ -75,7 +75,7 @@ class hanoiRG:
     
 
 
-class parentTraceur:
+class ParentTraceur:
 
     def __init__(self, rootedGraph):
         self.graphe = rootedGraph
@@ -94,13 +94,13 @@ class parentTraceur:
                 self.parents[voisin_state]=[state]
         return voisins
     
-    def trace(query):
-        pass
-
-    
-        
-
-
+    def trace(self):
+        noeud = next(k for k,v in self.parents.items if self.graphe.etatFinal(k))
+        trace = [noeud]
+        while noeud not in self.root :
+            parent = self.parents[noeud]
+            trace.insert(0,parent)
+        return trace
 
 
 
@@ -109,7 +109,7 @@ p = parcours_en_largeur(h, h.etatFinal)
 for state in p:
     print(state.towers)
 
-print("Solution branch is :\n")
-print(parcours_en_largeur(parentTraceur(h)))
+
+
 #TODO ajouter la gestion de parents
-#TODO faire du rootedGraph une classe abstraite
+#TODO faire du rootedGraph une classe abstraite et faire de hanoiRG et parentTraceur des classes filles
