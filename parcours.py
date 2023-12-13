@@ -109,7 +109,4 @@ p = parcours_en_largeur(h, h.etatFinal)
 for state in p:
     print(state.towers)
 
-
-
-#TODO ajouter la gestion de parents
 #TODO faire du rootedGraph une classe abstraite et faire de hanoiRG et parentTraceur des classes filles
