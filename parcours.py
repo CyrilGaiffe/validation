@@ -14,7 +14,6 @@ from collections import deque
 def parcours_en_largeur(rootedGraph, query):
     file = deque([rootedGraph.root()])
     visite = set([rootedGraph.root()])
-    parents = {}
 
     while file:
         sommet_courant = file.popleft()
@@ -23,26 +22,9 @@ def parcours_en_largeur(rootedGraph, query):
             if voisin not in visite:
                 file.append(voisin)
                 visite.add(voisin)
-                if sommet_courant in parents:
-                    parents[sommet_courant].append(voisin)
-                else :
-                    parents[sommet_courant]=[voisin]
                 if query(voisin):
-                    return (visite,parentTraceur(voisin,parents,rootedGraph))
+                    return visite
     return visite
-
-
-def parentTraceur(noeud,dict,rootedGraph):
-    result =[]
-    courant = noeud
-    while (courant!=rootedGraph.root()):
-        result.append(courant)
-        for cle,valeur in dict.items():
-            for i in range(len(valeur)):
-                if valeur[i] == courant:
-                    courant = cle
-                
-    return result
     
 
 # G = rootedGraph({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A')
@@ -64,11 +46,11 @@ class hanoiConfiguration:
 
 # jeu de hanoï
 class hanoiRG:
-    def __init__(self):
-        pass
+    def __init__(self, root = hanoiConfiguration([[1, 2, 3], [], []])):
+        self.racine = root
 
     def root(self):
-        return hanoiConfiguration([[1, 2, 3], [], []])
+        return self.racine
     
     
     def neighbors(self, state):
@@ -90,13 +72,44 @@ class hanoiRG:
     
     def etatFinal(self,hanoiState):
         return hanoiState.towers[2] == [1, 2, 3]
+    
+
+
+class parentTraceur:
+
+    def __init__(self, rootedGraph):
+        self.graphe = rootedGraph
+        self.parents={}
+
+    def root(self):
+        root = self.graphe.root()
+        for state in root:
+            self.parents[state]=[]
+        return root
+    
+    def neighbors(self, state):
+        voisins = self.graphe.neighbors(state)
+        for voisin_state in voisins:
+            if voisin_state not in self.parents:
+                self.parents[voisin_state]=[state]
+        return voisins
+    
+    def trace(query):
+        pass
+
+    
+        
+
+
+
 
 
 h = hanoiRG()
 p = parcours_en_largeur(h, h.etatFinal)
-for state in p[0]:
+for state in p:
     print(state.towers)
+
 print("Solution branch is :\n")
-for state in p[1]:
-    print(state.towers)
+print(parcours_en_largeur(parentTraceur(h)))
 #TODO ajouter la gestion de parents
+#TODO faire du rootedGraph une classe abstraite
