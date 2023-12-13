@@ -92,6 +92,8 @@ class ParentTraceur:
         for voisin_state in voisins:
             if voisin_state not in self.parents:
                 self.parents[voisin_state]=[state]
+            else : 
+                self.parents[voisin_state].append(state)
         return voisins
     
     def trace(self):
