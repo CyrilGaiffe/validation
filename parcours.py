@@ -1,7 +1,7 @@
 from collections import deque
 from abc import ABC
 
-class rootedGraph(ABC) :
+class RootedGraph(ABC) :
     def __init__(self):
         pass
 
@@ -34,7 +34,7 @@ def parcours_en_largeur(rootedGraph, query):
 
 
 
-class hanoiConfiguration:
+class HanoiConfiguration:
     def __init__(self, towers):
         self.towers = towers
 
@@ -46,8 +46,8 @@ class hanoiConfiguration:
 
 
 # jeu de hanoï
-class hanoiRG(rootedGraph):
-    def __init__(self, root = hanoiConfiguration([[1, 2, 3], [], []])):
+class HanoiRG(RootedGraph):
+    def __init__(self, root = HanoiConfiguration([[1, 2, 3], [], []])):
         self.racine = root
 
     def root(self):
@@ -60,7 +60,7 @@ class hanoiRG(rootedGraph):
         for source in range(len(state.towers)):
             for target in range(len(state.towers)):
                 if source != target:
-                    new_state = hanoiConfiguration([[], [], []])
+                    new_state = HanoiConfiguration([[], [], []])
                     new_state.towers = [list(tower) for tower in state.towers]
                     if new_state.towers[source]:
                         disk = new_state.towers[source].pop(0)
@@ -76,7 +76,7 @@ class hanoiRG(rootedGraph):
     
 
 
-class ParentTraceur(rootedGraph):
+class ParentTraceur(RootedGraph):
 
     def __init__(self, rootedGraph):
         self.graphe = rootedGraph
@@ -107,7 +107,7 @@ class ParentTraceur(rootedGraph):
 
 
 
-h = hanoiRG()
+h = HanoiRG()
 p = parcours_en_largeur(h, h.etatFinal)
 for state in p:
     print(state.towers)
