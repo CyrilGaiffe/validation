@@ -28,13 +28,13 @@ def parcours_en_largeur(rootedGraph, query):
                 else :
                     parents[sommet_courant]=[voisin]
                 if query(voisin):
-                    return (visite,parent(voisin,parents,rootedGraph))
+                    return (visite,parentTraceur(voisin,parents,rootedGraph))
     return visite
 
 
-def parent(node,dict,rootedGraph):
+def parentTraceur(noeud,dict,rootedGraph):
     result =[]
-    courant = node
+    courant = noeud
     while (courant!=rootedGraph.root()):
         result.append(courant)
         for cle,valeur in dict.items():
@@ -51,7 +51,7 @@ def parent(node,dict,rootedGraph):
 
 
 
-class hanoiState:
+class hanoiConfiguration:
     def __init__(self, towers):
         self.towers = towers
 
@@ -68,7 +68,7 @@ class hanoiRG:
         pass
 
     def root(self):
-        return hanoiState([[1, 2, 3], [], []])
+        return hanoiConfiguration([[1, 2, 3], [], []])
     
     
     def neighbors(self, state):
@@ -77,7 +77,7 @@ class hanoiRG:
         for source in range(len(state.towers)):
             for target in range(len(state.towers)):
                 if source != target:
-                    new_state = hanoiState([[], [], []])
+                    new_state = hanoiConfiguration([[], [], []])
                     new_state.towers = [list(tower) for tower in state.towers]
                     if new_state.towers[source]:
                         disk = new_state.towers[source].pop(0)
@@ -88,12 +88,12 @@ class hanoiRG:
 
         return voisins
     
-    def isFinalState(self,hanoiState):
+    def etatFinal(self,hanoiState):
         return hanoiState.towers[2] == [1, 2, 3]
 
 
 h = hanoiRG()
-p = parcours_en_largeur(h, h.isFinalState)
+p = parcours_en_largeur(h, h.etatFinal)
 for state in p[0]:
     print(state.towers)
 print("Solution branch is :\n")
