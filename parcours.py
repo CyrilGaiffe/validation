@@ -1,14 +1,15 @@
 from collections import deque
+from abc import ABC
 
-# class rootedGraph :
-#     def __init__(self):
-#         pass
+class rootedGraph(ABC) :
+    def __init__(self):
+        pass
 
-#     def roots(self):
-#         return self.root
+    def roots(self):
+        return self.root
     
-#     def neighbors(self, node):
-#         return self.graph[node]
+    def neighbors(self, node):
+        return self.graph[node]
 
 
 def parcours_en_largeur(rootedGraph, query):
@@ -45,7 +46,7 @@ class hanoiConfiguration:
 
 
 # jeu de hanoï
-class hanoiRG:
+class hanoiRG(rootedGraph):
     def __init__(self, root = hanoiConfiguration([[1, 2, 3], [], []])):
         self.racine = root
 
@@ -75,7 +76,7 @@ class hanoiRG:
     
 
 
-class ParentTraceur:
+class ParentTraceur(rootedGraph):
 
     def __init__(self, rootedGraph):
         self.graphe = rootedGraph
@@ -110,5 +111,3 @@ h = hanoiRG()
 p = parcours_en_largeur(h, h.etatFinal)
 for state in p:
     print(state.towers)
-
-#TODO faire du rootedGraph une classe abstraite et faire de hanoiRG et parentTraceur des classes filles
