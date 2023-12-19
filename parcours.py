@@ -84,8 +84,7 @@ class ParentTraceur(RootedGraph):
 
     def root(self):
         root = self.graphe.root()
-        for state in root:
-            self.parents[state]=[]
+        self.parents[root]=[]
         return root
     
     def neighbors(self, state):
@@ -93,21 +92,29 @@ class ParentTraceur(RootedGraph):
         for voisin_state in voisins:
             if voisin_state not in self.parents:
                 self.parents[voisin_state]=[state]
-            else : 
-                self.parents[voisin_state].append(state)
         return voisins
     
     def trace(self):
-        noeud = next(k for k,v in self.parents.items if self.graphe.etatFinal(k))
-        trace = [noeud]
-        while noeud not in self.root :
-            parent = self.parents[noeud][0]
-            trace.insert(0,parent)
+        trace=[]
+        #partir de l'état final, remonter jsuqu'à la racine
+        systeme = parcours_en_largeur(self, self.graphe.etatFinal)
+        solution = None
+        for noeud in systeme:
+            if self.graphe.etatFinal(noeud):
+                solution = noeud 
+                break
+        trace.append(solution)
+        while solution != self.graphe.root():
+            solution = self.parents[solution][0]
+            trace.append(solution)
         return trace
 
 
 
 h = HanoiRG()
-p = parcours_en_largeur(h, h.etatFinal)
-for state in p:
+pt=ParentTraceur(h)
+# p = parcours_en_largeur(h, h.etatFinal)
+# for state in p:
+#     print(state.towers)
+for state in pt.trace():
     print(state.towers)
