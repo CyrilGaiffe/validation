@@ -1,9 +1,8 @@
 import semantics
-import random
 
 class oneBitClock(semantics):
     def initial(self):
-        return [random.choice([0,1])]
+        return [0,1]
     
     def actions(self, c):
         A=[]
