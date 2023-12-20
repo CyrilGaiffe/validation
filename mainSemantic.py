@@ -5,4 +5,5 @@ import parcours
 
 clock = oneBitClock()
 print(clock.initial())
-print(clock.actions(clock.initial()))
+for state in clock.initial():
+    print(clock.actions([state]))

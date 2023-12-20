@@ -10,6 +10,7 @@ class oneBitClock(Semantics):
             A.append(lambda c : [0])
         else:
             A.append(lambda c : [1])
+        return A
         
     
     def execute(self, a , c ):
