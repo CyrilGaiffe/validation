@@ -13,6 +13,4 @@ class oneBitClock(semantics):
         
     
     def execute(self, a , c ):
-        listConfig = []
-        for action in a:
-            listConfig.append(a(c))
+        return a(c)
