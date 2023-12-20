@@ -1,4 +1,3 @@
-from parcours import RootedGraph
 
 class semantic2RG:
     def __init__(self,semantic):
@@ -14,3 +13,8 @@ class semantic2RG:
             targets = self.semantic.execute(action,state)
             voisins.extend(targets)
 
+
+# use : semantic2RG(semantic)
+# semantic2RG(semantic).root()
+# semantic2RG(semantic).neighbors(state)
+# allows to use a semantic as a rooted graph
