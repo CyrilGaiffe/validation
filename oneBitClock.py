@@ -1,6 +1,6 @@
-import semantics
+from semantics import Semantics
 
-class oneBitClock(semantics):
+class oneBitClock(Semantics):
     def initial(self):
         return [0,1]
     

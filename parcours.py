@@ -1,6 +1,9 @@
 from collections import deque
 from abc import ABC
 
+#TODO : faire des fichiers propres séparés
+#TODO : gérer prorement les listes de root
+
 class RootedGraph(ABC) :
     def __init__(self):
         pass
@@ -116,5 +119,5 @@ pt=ParentTraceur(h)
 # p = parcours_en_largeur(h, h.etatFinal)
 # for state in p:
 #     print(state.towers)
-for state in pt.trace():
-    print(state.towers)
+# for state in pt.trace():
+#     print(state.towers)
