@@ -1,33 +1,23 @@
-from parcours import parcours_en_largeur
+from semantics import Semantics
 
-class Person :
-    def __init__(self, name):
-        self.name = name
+class AliceBob(Semantics):
+    def initial(self):
+        return ["Alice","","Bob"]
 
-class GardenConfiguration:
-    def __init__(self,garden):
-        self.garden = garden
+    def actions(self, configuration):
+        A=[]
+        if configuration[1] == "":
+            #no one is in the garden
+            A.append(lambda c : [c[1],c[0],c[2]])
+            A.append(lambda c : [c[0],c[2],c[1]])
 
-    def __eq__(self, other):
-        return self.garden == other.garden
-    
-    def __hash__(self):
-        return 1
-
-
-class Garden:
-    def __init__(self, root = GardenConfiguration([Person("Alice"),0,Person("Bob")])):
-        self.racine = root
-
-    def root(self):
-        return self.racine
-    
-    def neighbors(self, state):
-        voisins = []
-        if state.garden[1] == 0:
-            voisins.append(GardenConfiguration([Person("Alice"), Person("Bob"), 0]))
-            voisins.append(GardenConfiguration([0, Person("Alice"), Person("Bob")]))
         else :
-            voisins.append(GardenConfiguration([Person("Alice"), 0, Person("Bob")]))
-
-        return voisins
+            if configuration[2] == "":
+               #Bob is in the garden
+                A.append(lambda c : [c[0],c[2],c[1]])
+            else:
+                A.append(lambda c : [c[1],c[0],c[2]])
+        return A
+    
+    def execute(self, action, configuration):
+        return action(configuration)
