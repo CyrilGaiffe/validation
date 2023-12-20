@@ -3,6 +3,7 @@ from abc import ABC
 
 #TODO : faire des fichiers propres séparés
 #TODO : gérer prorement les listes de root
+#TODO : bosser sur alice et Bob pour vérifier dans un premier temps qu'ils arrivent tous les deux dans le jardin puis mettre les flags et ainsi de suite
 
 class RootedGraph(ABC) :
     def __init__(self):
