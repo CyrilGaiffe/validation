@@ -10,6 +10,9 @@ class SoupConfiguration(ABC):
     def __hash__(self):
         pass
 
+    def __str__(self):
+        pass
+
 class Piece:
     def __init__(self, name, garde, action):
         #list, lambda, lambda
