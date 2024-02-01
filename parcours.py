@@ -1,9 +1,7 @@
 from collections import deque
 from abc import ABC
 
-#TODO : faire des fichiers propres séparés
-#TODO : gérer prorement les listes de root
-#TODO : bosser sur alice et Bob pour vérifier dans un premier temps qu'ils arrivent tous les deux dans le jardin puis mettre les flags et ainsi de suite
+
 
 class RootedGraph(ABC) :
     def __init__(self):
@@ -18,7 +16,10 @@ class RootedGraph(ABC) :
 
 def parcours_en_largeur(rootedGraph, query):
     file = deque([rootedGraph.root()])
-    visite = set([rootedGraph.root()])
+    if isinstance(rootedGraph.root(), list):
+        visite = set(rootedGraph.root())
+    else:
+        visite = set([rootedGraph.root()])
 
     while file:
         sommet_courant = file.popleft()
@@ -88,7 +89,10 @@ class ParentTraceur(RootedGraph):
 
     def root(self):
         root = self.graphe.root()
-        self.parents[root]=[]
+        if isinstance(root, list):
+            self.parents[tuple(root)]=[]
+        else :
+            self.parents[root]=[]
         return root
     
     def neighbors(self, state):
@@ -98,13 +102,13 @@ class ParentTraceur(RootedGraph):
                 self.parents[voisin_state]=[state]
         return voisins
     
-    def trace(self):
+    def trace(self, etatFinal):
         trace=[]
         #partir de l'état final, remonter jsuqu'à la racine
-        systeme = parcours_en_largeur(self, self.graphe.etatFinal)
+        systeme = parcours_en_largeur(self, etatFinal)
         solution = None
         for noeud in systeme:
-            if self.graphe.etatFinal(noeud):
+            if etatFinal(noeud):
                 solution = noeud 
                 break
         trace.append(solution)
@@ -114,11 +118,17 @@ class ParentTraceur(RootedGraph):
         return trace
 
 
+if __name__ == "__main__":
+    h = HanoiRG()
+    pt=ParentTraceur(h)
+    p = parcours_en_largeur(h, h.etatFinal)
+    print("affichage du parcours en largeur")
+    for state in p:
+        print(state.towers)
+    print("affichage de la trace du parent traceur")
+    for state in pt.trace(h.etatFinal):
+        print(state.towers)
 
-h = HanoiRG()
-pt=ParentTraceur(h)
-# p = parcours_en_largeur(h, h.etatFinal)
-# for state in p:
-#     print(state.towers)
-# for state in pt.trace():
-#     print(state.towers)
+    p2 = parcours_en_largeur(pt, pt.graphe.etatFinal)
+    print(p2==p)
+
