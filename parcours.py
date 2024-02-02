@@ -23,8 +23,11 @@ def parcours_en_largeur(rootedGraph, query):
 
     while file:
         sommet_courant = file.popleft()
-
+        voisins = []
         for voisin in rootedGraph.neighbors(sommet_courant):
+            voisins.append(voisin)
+
+        for voisin in voisins:
             if voisin not in visite:
                 file.append(voisin)
                 visite.add(voisin)

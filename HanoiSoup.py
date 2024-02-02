@@ -3,8 +3,11 @@ from semantics2RG import *
 from parcours import *
 
 class HanoiSoupConfig(SoupConfiguration):
-    def __init__(self,n):
-        self.towers=[[1,2,3],[],[]] 
+    def __init__(self):
+        self.towers = [[1,2,3],[],[]]
+
+    def initial (self):
+        return [[1,2,3],[],[]] 
 
     def __hash__(self):
         return 1
@@ -23,7 +26,7 @@ class HanoiSoupConfig(SoupConfiguration):
 
     
 
-if __name__=='main':
+if __name__=="__main__":
     def hanoiAction(objet, source, destination):
         return objet.actionMoveDisk(source, destination)
 
