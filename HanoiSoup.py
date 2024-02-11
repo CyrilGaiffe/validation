@@ -39,4 +39,3 @@ if __name__=="__main__":
     soupeSemantics = SoupSemantics(soupe)
     adaptator = semantic2RG(soupeSemantics)
     print(adaptator.root())
-    print(adaptator.neighbors(adaptator.root()))

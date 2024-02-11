@@ -54,7 +54,7 @@ class SoupSemantics:
         self.soupSpec = soupSpec
 
     def initial(self):
-        return self.soupSpec.initial()
+        return self.soupSpec.initial
     
     def actions(self, c):
         return self.soupSpec.enabledPieces(c)
