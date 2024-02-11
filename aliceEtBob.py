@@ -9,7 +9,6 @@ class AliceBob(Semantics):
 
     def actions(self, configuration):
         A = []
-        print(configuration)
         if isinstance(configuration, list):
             configuration = configuration[0]
 
